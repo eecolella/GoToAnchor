@@ -1,0 +1,4 @@
+{
+	"reg_exp_domains": "com|co|uk|gov|edu|tv|net|org|tel|me|us|mobi|es|io|it",
+	"reg_exp_file_to_tun" : "psd|ai", 
+}
