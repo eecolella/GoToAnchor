@@ -183,6 +183,7 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 		maches = view.find_all('GOTOANCHOR')
 		current = view.sel()[0]
 		mach = current
+		flag = True
 
 		if self.debug:
 			print("DEBUG: maches: ", maches)
@@ -190,6 +191,10 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 		for index in range(len(maches)):
 			if ( maches[index].begin() < current.begin() ):
 				mach = maches[index]
+				flag = False
+
+		if flag and len(maches) > 0:
+			mach = maches[len(maches) - 1]			
 
 		if self.debug:
 			print("DEBUG: mach: ", mach)
