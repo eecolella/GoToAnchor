@@ -4,7 +4,7 @@
 
 Create anchors and references for easily move everywhere!
 
-Inspirated and based on [Open Url] (https://github.com/noahcoad/open-url/blob/master/README.md)
+Inspirated on [Open Url] (https://github.com/noahcoad/open-url/blob/master/README.md) and [Search In Project] (https://github.com/leonid-shevtsov/SearchInProject_SublimeText)
 
 ## Introduction
 
@@ -18,10 +18,15 @@ Inspirated and based on [Open Url] (https://github.com/noahcoad/open-url/blob/ma
 // GOTOANCHOR:some optional description URL:'Absolute:\Path@1394328786.442311'
 ```
 
+* Every anchor can point to file, folder or url
+* N references can point to 1 anchor
+
 ## How to use
 
 ###Go To Anchor
 ctrl/super+u or find "GOTOANCHOR: Go To Anchor" from list of ST commands (ctrl/super+shift+p) (if you are not in valid url will be run automatically "Go to the closest previous reference")
+###Search Anchor in Project
+ctrl/super+shift+alt+u or find "GOTOANCHOR: Search Anchor" from list of ST commands (ctrl/super+shift+p)
 ###Go to the closest previous reference
 ctrl/super+shift+u or find "GOTOANCHOR: Find Prev Reference" from list of ST commands (ctrl/super+shift+p) (if there isn&#39;t a previous reference re-start to find from the end of the file)
 ###Go to the closest previous anchor
