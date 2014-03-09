@@ -8,19 +8,21 @@ SETTINGS = 'go_to_anchor.sublime-settings'
 GoToLastAnchor = ''
 
 class GoToAnchorCommand(sublime_plugin.TextCommand):
-	debug = False
+	debug = True
 
 	# method: go_to_url
-	# method: find_prev_anchor
-	def run(self, edit, method="open_url"):
+	# method: find_prev_something
+	def run(self, edit, method="open_url", something="GOTOANCHOR"):
 
 		if self.debug:
 			print("\n\nDEBUG START ### go_to_anchor." + method + " ###")
+			print("DEBUG: method: ", method)
+			print("DEBUG: something: ", something)
 
 		if method == "go_to_url":
 			self.go_to_url(edit)
-		elif method == "find_prev_anchor":
-			self.find_prev_anchor()
+		elif method == "find_prev_something":
+			self.find_prev_something(something)
 
 	def go_to_url(self, edit):
 		view = self.view		
@@ -89,10 +91,10 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 						url = "http://" + url
 					webbrowser.open_new_tab(url)
 				else:
-					self.find_prev_anchor()
+					self.find_prev_something()
 		
 		else:
-			self.find_prev_anchor()
+			self.find_prev_something()
 
 	# pulls the current selection or url under the cursor
 	def selection(self):
@@ -154,9 +156,9 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 			# move cursor in position mach
 			view_opened_file.sel().clear()
 			view_opened_file.sel().add(newMach)
-			view_opened_file.show(newMach) 
+			view_opened_file.show_at_center(newMach) 
 
-			sublime.set_timeout(lambda: view_opened_file.show(newMach), 10)
+			sublime.set_timeout(lambda: view_opened_file.show_at_center(newMach), 10)
 		else:
 			sublime.set_timeout(lambda: self.find_anchor(view_opened_file, idAnchor), 10)
 
@@ -176,11 +178,16 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 		# move cursor in position mach
 		view.sel().clear()
 		view.sel().add(newMach)
-		view.show(newMach) 
+		view.show_at_center(newMach) 
 
-	def find_prev_anchor(self):
+	def find_prev_something(self, something='GOTOANCHOR'):
+		
+
+		if self.debug:
+			print("DEBUG: something: ", something)
+			
 		view = self.view
-		maches = view.find_all('GOTOANCHOR')
+		maches = view.find_all(something)
 		current = view.sel()[0]
 		mach = current
 		flag = True
@@ -194,7 +201,8 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 				flag = False
 
 		if flag and len(maches) > 0:
-			mach = maches[len(maches) - 1]			
+			mach = maches[len(maches) - 1]
+			
 
 		if self.debug:
 			print("DEBUG: mach: ", mach)
@@ -202,7 +210,7 @@ class GoToAnchorCommand(sublime_plugin.TextCommand):
 		# move cursor in position mach
 		view.sel().clear()
 		view.sel().add(mach)
-		view.show(mach) 
+		view.show_at_center(mach) 
 
 class GenerateAnchorCommand(sublime_plugin.TextCommand):
 	debug = False
@@ -245,7 +253,7 @@ class GenerateAnchorCommand(sublime_plugin.TextCommand):
 		# move cursor in position
 		view.sel().clear()
 		view.sel().add(newPosition)
-		view.show(newPosition) 
+		view.show_at_center(newPosition) 
 
 		# save text in global variable
 		GoToLastAnchor = "GOTOANCHOR: URL:'%s@%s'" % (view.file_name(), idAnchor)

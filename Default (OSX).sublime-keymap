@@ -1,6 +1,7 @@
 [
 { "keys": ["super+u"], "command": "go_to_anchor" , "args": {"method":"go_to_url" }},
-{ "keys": ["super+alt+u"], "command": "go_to_anchor", "args": {"method":"find_prev_anchor" }},
+{ "keys": ["super+shift+u"], "command": "go_to_anchor", "args": {"method":"find_prev_something" }},
+{ "keys": ["super+alt+u"], "command": "go_to_anchor", "args": {"method":"find_prev_something", "something": "ANCHOR" }},
 
 { "keys": ["super+alt+z","super+a"], "command": "generate_anchor", "args": {"method": "create_anchor"} }, 
 { "keys": ["super+alt+z","super+shift+a"], "command": "generate_anchor", "args": {"method": "create_gotoanchor_last"} },
