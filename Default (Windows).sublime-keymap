@@ -2,6 +2,7 @@
 { "keys": ["ctrl+u"], "command": "go_to_anchor" , "args": {"method":"go_to_url" }},
 { "keys": ["ctrl+shift+u"], "command": "go_to_anchor", "args": {"method":"find_prev_something" }},
 { "keys": ["ctrl+alt+u"], "command": "go_to_anchor", "args": {"method":"find_prev_something", "something": "ANCHOR" }},
+{ "keys": ["ctrl+shift+alt+u"], "command": "search_anchor" },
 
 { "keys": ["ctrl+alt+z","ctrl+a"], "command": "generate_anchor", "args": {"method": "create_anchor"} }, 
 { "keys": ["ctrl+alt+z","ctrl+shift+a"], "command": "generate_anchor", "args": {"method": "create_gotoanchor_last"} },

@@ -1,14 +1,35 @@
-# Open URL opens selected URLs, files, folders, or googles text
-# Hosted at http://github.com/noahcoad/open-url
+# GoToAnchor
+# Create anchors and references for easily move everywhere!
+# Hosted at https://github.com/eecolella/GoToAnchor
 
 import sublime, sublime_plugin
-import urllib, urllib.parse, os, time, re, webbrowser
+import urllib, urllib.parse, time, re, webbrowser
+import os.path, os, sys, inspect
+
+### Start of fixing import paths
+# realpath() with make your script run, even if you symlink it :)
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0]))
+if cmd_folder not in sys.path:
+    sys.path.insert(0, cmd_folder)
+# use this if you want to include modules from a subforder
+cmd_subfolder = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile(inspect.currentframe()))[0], "subfolder")))
+if cmd_subfolder not in sys.path:
+    sys.path.insert(0, cmd_subfolder)
+ # Info:
+ # cmd_folder = os.path.dirname(os.path.abspath(__file__)) # DO NOT USE __file__ !!!
+ # __file__ fails if script is called in different ways on Windows
+ # __file__ fails if someone does os.chdir() before
+ # sys.argv[0] also fails because it doesn't not always contains the path
+### End of fixing import paths
+
+import searchengines
 
 SETTINGS = 'go_to_anchor.sublime-settings'
 GoToLastAnchor = ''
+basedir = os.getcwd()
 
 class GoToAnchorCommand(sublime_plugin.TextCommand):
-	debug = True
+	debug = False
 
 	# method: go_to_url
 	# method: find_prev_something
@@ -292,3 +313,100 @@ class GenerateAnchorCommand(sublime_plugin.TextCommand):
 
 		# save text in global variable
 		GoToLastAnchor = "GOTOANCHOR: URL:'%s@%s'" % (view.file_name(), idAnchor)
+
+class SearchAnchorCommand(sublime_plugin.WindowCommand):
+
+    debug = False
+    lastSelected = None
+
+    def __init__(self, window):
+        self.window = window;
+        sublime_plugin.WindowCommand.__init__(self, window)
+        self.last_search_string = ''
+        pass
+
+    def run(self):
+
+        if self.debug:
+            print("\n\nDEBUG START ### SearchInProjectCommand. ###")
+
+        self.settings = sublime.load_settings('SearchInProject.sublime-settings')
+        self.engine_name = self.settings.get("search_in_project_engine")
+        pushd = os.getcwd()
+        os.chdir(basedir)
+        __import__("searchengines.%s" % self.engine_name)
+        self.engine = searchengines.__dict__[self.engine_name].engine_class(self.settings)
+        os.chdir(pushd)
+
+        self.perform_search('ANCHOR')
+
+    def perform_search(self, text):
+        self.last_search_string = text
+        folders = self.search_folders()
+
+        self.common_path = self.find_common_path(folders)
+        self.results = self.engine.run(text, folders)
+        if self.results:
+
+            if self.debug and False:
+                print("\nDEBUG: self.results before fix: ", self.results)
+
+            self.results = [[result[0].replace(self.common_path.replace('\"', ''), ''), result[1]] for result in self.results]
+            self.results.remove(self.results[0])
+
+            for index in range(len(self.results)):
+                temp = self.results[index][0]
+                self.results[index][0] = re.search("(?<=ANCHOR:)(.*)(?=ID:)", self.results[index][1]).group(1).strip()
+                self.results[index][1] = temp
+
+            if self.debug and False:
+                print("\nDEBUG: self.results after fix: ", self.results)
+
+
+            arrayTempViewOpen = []
+            arrayTempPathViewOpen = []
+
+            self.lastSelected = None
+            self.window.show_quick_panel(self.results, None, 0, -1, self.on_select)
+        else:
+            self.results = []
+            self.window.show_quick_panel(["No results"], None)                         
+
+    def on_select(self, file_no=None):
+        if file_no != -1:
+            # go to anchor
+            file_name = self.common_path.replace('\"', '') + self.results[file_no][1]
+            view = self.window.open_file(file_name, sublime.ENCODED_POSITION)
+
+            # store the view in first interaction
+            if self.lastSelected == None:
+                self.lastSelected = view
+
+            # if the match is in another file
+            elif view.file_name() != self.lastSelected.file_name():
+                # close the last
+                self.window.focus_view(self.lastSelected)
+                self.window.run_command("close")
+                # re-focus in the current
+                self.window.focus_view(view)
+                # store the new view
+                self.lastSelected = view
+
+    def search_folders(self):
+        window_folders = self.window.folders()
+        for index, item in enumerate(window_folders):
+                window_folders[index] = "\"" + window_folders[index] + "\""
+        file_dirname = ["\"" + os.path.dirname(self.window.active_view().file_name()) + "\""]
+        return window_folders or file_dirname
+
+    def find_common_path(self, paths):
+        paths = [path.replace("\"", "") for path in paths]
+        paths = [path.split("/") for path in paths]
+        common_path = []
+        while 0 not in [len(path) for path in paths]:
+            next_segment = list(set([path.pop(0) for path in paths]))
+            if len(next_segment) == 1:
+                common_path += next_segment
+            else:
+                break
+        return "\"" + "/".join(common_path) + "/\""
