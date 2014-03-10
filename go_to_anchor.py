@@ -14,7 +14,7 @@ if cmd_folder not in sys.path:
 # use this if you want to include modules from a subforder
 cmd_subfolder = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile(inspect.currentframe()))[0], "subfolder")))
 if cmd_subfolder not in sys.path:
-    sys.path.insert(0, cmd_subfolder)
+    sys.path.insert(0, cmd_subfolder) 
  # Info:
  # cmd_folder = os.path.dirname(os.path.abspath(__file__)) # DO NOT USE __file__ !!!
  # __file__ fails if script is called in different ways on Windows
@@ -330,7 +330,7 @@ class SearchAnchorCommand(sublime_plugin.WindowCommand):
         if self.debug:
             print("\n\nDEBUG START ### SearchInProjectCommand. ###")
 
-        self.settings = sublime.load_settings('SearchInProject.sublime-settings')
+        self.settings = sublime.load_settings(SETTINGS)
         self.engine_name = self.settings.get("search_in_project_engine")
         pushd = os.getcwd()
         os.chdir(basedir)
