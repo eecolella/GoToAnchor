@@ -23,7 +23,7 @@ Inspirated on [Open Url] (https://github.com/noahcoad/open-url/blob/master/READM
 
 ## How to use
 
-[![Alt text for your video](http://img.youtube.com/vi/ikw48Jm7Q5g/0.jpg)](http://www.youtube.com/watch?v=ikw48Jm7Q5g)
+[![Alt text for your video](https://raw.github.com/eecolella/GoToAnchor/master/YouTubeImage.jpg)](http://www.youtube.com/watch?v=ikw48Jm7Q5g)
 
 ## Commands
 
