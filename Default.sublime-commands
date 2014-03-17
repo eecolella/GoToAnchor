@@ -1,13 +1,13 @@
 [
     //GoToAnchor
-    { "caption": "GOTOANCHOR: Go To Anchor", "command": "go_to_anchor" , "args": {"method":"go_to_url" }},
-    { "caption": "GOTOANCHOR: Find Prev Reference", "command": "go_to_anchor", "args": {"method":"find_prev_something" }},
-	{ "caption": "GOTOANCHOR: Find Prev Anchor", "command": "go_to_anchor", "args": {"method":"find_prev_something", "something": "ANCHOR" }},
-	{ "caption": "GOTOANCHOR: Search Anchor", "command": "search_anchor" },
+    { "caption": "GTA: Open Reference", "command": "go_to_anchor" , "args": {"method":"go_to_url" }},
+    { "caption": "GTA: Find Prev Reference", "command": "go_to_anchor", "args": {"method":"find_prev_something" }},
+	{ "caption": "GTA: Find Prev Anchor", "command": "go_to_anchor", "args": {"method":"find_prev_something", "something": "ANCHOR" }},
+	{ "caption": "GTA: Search Anchor", "command": "search_anchor" },
 
     //Anchor
-    { "caption": "GOTOANCHOR: Create Anchor","command": "generate_anchor", "args": {"method": "create_anchor"} },
-    { "caption": "GOTOANCHOR: Create Reference Last Anchor","command": "generate_anchor", "args": {"method": "create_gotoanchor_last"} },
-    { "caption": "GOTOANCHOR: Create Empty Reference","command": "generate_anchor", "args": {"method": "create_gotoanchor_empty"} },
-    { "caption": "GOTOANCHOR: Re-create Reference From Current Anchor","command": "generate_anchor", "args": {"method": "re_create_gotoanchor"} }
+    { "caption": "GTA: Create Anchor","command": "generate_anchor", "args": {"method": "create_anchor"} },
+    { "caption": "GTA: Paste Reference To Last Anchor","command": "generate_anchor", "args": {"method": "create_gotoanchor_last"} },
+    { "caption": "GTA: Paste Empty Reference","command": "generate_anchor", "args": {"method": "create_gotoanchor_empty"} },
+    { "caption": "GTA: Save Reference From Current Anchor","command": "generate_anchor", "args": {"method": "re_create_gotoanchor"} } 
 ]

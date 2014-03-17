@@ -1,0 +1,4 @@
+{
+  /* Use findstr on Windows, because it's built-in */
+  "go_to_anchor_engine": "find_str"
+}

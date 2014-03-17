@@ -1,0 +1,8 @@
+This version contains a major refactor of the code. If any issues arise, please create an issue on the github (https://github.com/eecolella/GoToAnchor/issues) page. 
+
+Changes:
+- Miscellaneous bug fixes.
+
+Enhancements:
+- Add status bar notifications.
+

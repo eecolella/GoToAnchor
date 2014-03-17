@@ -1,0 +1,40 @@
+/*
+  GoToAnchor default settings
+  Do not change this file; change your user settings file instead
+  */
+{
+  "reg_exp_domains": "com|co|uk|gov|edu|tv|net|org|tel|me|us|mobi|es|io|it",
+  "reg_exp_file_to_tun" : "psd|ai", 
+
+  /* SETTINGS OF THE OLD SEARCH IN PROJECT*/
+
+  /* What engine to use; one of grep, ack, the_silver_searcher, or git_grep (or find_str, on Windows) */
+  /* The default is grep because it's widely available on *nix machines, but ack and The Silver Searcher are both faster, */
+  /* and git grep is also faster, but only works inside a Git repository */
+  "go_to_anchor_engine": "grep",
+
+  /* Grep configuration */
+  /* Path to grep executable; if the standard one doesn't work for you, you can specify an explicit path in your user config file. */
+  "go_to_anchor_Grep_path_to_executable": "grep",
+  /* Do NOT change these options; they are expected to be present for GoToAnchor to work correctly. */
+  "go_to_anchor_Grep_mandatory_options": "-nr",
+  /* Specify additional options to be used with all searches here. */
+  "go_to_anchor_Grep_common_options": "",
+
+  /* Ack configuration */
+  "go_to_anchor_Ack_path_to_executable": "ack",
+  "go_to_anchor_Ack_mandatory_options": "",
+  "go_to_anchor_Ack_common_options": "--type-add coffeescript=.coffee --type-add haml=.haml --type-add sass=.sass --type-add scss=.scss",
+
+  /* TheSilverSearcher configuration */
+  "go_to_anchor_TheSilverSearcher_path_to_executable": "ag",
+  "go_to_anchor_TheSilverSearcher_mandatory_options": "--column --search-files --nogroup --nocolor",
+
+  /* GitGrep configuration */
+  "go_to_anchor_GitGrep_path_to_executable": "git grep",
+  "go_to_anchor_GitGrep_mandatory_options": "--line",
+
+  /* FindStr configuration */
+  "go_to_anchor_FindStr_path_to_executable": "findstr",
+  "go_to_anchor_FindStr_mandatory_options": "/n /s"
+}

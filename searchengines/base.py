@@ -3,6 +3,8 @@ import re
 
 
 class Base:
+
+
     """
         This is the base search engine class.
         Override it to define new search engines.
@@ -35,6 +37,7 @@ class Base:
         print("Running: %s" % command_line)
         pipe = subprocess.Popen(command_line, shell=True, stdout=subprocess.PIPE)
         output, error = pipe.communicate()
+        print("output: %s" % output)
         if pipe.returncode != 0:
             return None
         return self._parse_output(self._sanitize_output(output).strip())
@@ -60,7 +63,7 @@ class Base:
         return [(":".join(line[0:-1]), line[-1].strip()) for line in line_parts]
 
     def _full_settings_name(self, name):
-        return "search_in_project_%s_%s" % (self.__class__.__name__, name)
+        return "go_to_anchor_%s_%s" % (self.__class__.__name__, name)
 
     def _filter_lines_without_matches(self, line_parts):
         return filter(lambda line: len(line) > 2, line_parts)
