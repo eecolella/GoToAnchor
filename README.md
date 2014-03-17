@@ -23,6 +23,10 @@ Inspirated on [Open Url] (https://github.com/noahcoad/open-url/blob/master/READM
 
 ## How to use
 
+[![Alt text for your video](http://img.youtube.com/vi/ikw48Jm7Q5g/0.jpg)](http://www.youtube.com/watch?v=ikw48Jm7Q5g)
+
+## Commands
+
 ###Go To Anchor
 ctrl/super+u or find "GOTOANCHOR: Go To Anchor" from list of ST commands (ctrl/super+shift+p) (if you are not in valid url will be run automatically "Go to the closest previous reference")
 ###Search Anchor in Project
