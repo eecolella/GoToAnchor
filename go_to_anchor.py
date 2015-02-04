@@ -5,7 +5,7 @@
 import sublime, sublime_plugin
 import urllib, urllib.parse, time, re, webbrowser, os 
 
-SETTINGS = 'go_to_anchor.sublime-settings'
+SETTINGS = 'GoToAnchor.sublime-settings'
 
 def SelectDescInLine(view, idAnchor=None):
  
@@ -549,6 +549,9 @@ class SearchAnchorCommand(sublime_plugin.WindowCommand):
                 self.window.show_quick_panel(self.results, None, 0, -1, self.on_select)
 
             else:
+                if self.debug:
+                    print("DEBUG search_anchor.perform_search: No results found.")
+                    
                 self.results = []
                 self.shadowResults = []
                 self.window.show_quick_panel(["No results"], None)
