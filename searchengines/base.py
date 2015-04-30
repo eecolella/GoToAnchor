@@ -3,8 +3,6 @@ import re
 
 
 class Base:
-
-
     """
         This is the base search engine class.
         Override it to define new search engines.
@@ -37,7 +35,6 @@ class Base:
         print("Running: %s" % command_line)
         pipe = subprocess.Popen(command_line, shell=True, stdout=subprocess.PIPE)
         output, error = pipe.communicate()
-        print("output: %s" % output)
         if pipe.returncode != 0:
             return None
         return self._parse_output(self._sanitize_output(output).strip())
